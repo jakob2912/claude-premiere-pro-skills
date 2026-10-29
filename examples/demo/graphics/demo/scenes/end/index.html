@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Demo – end card</title>
+    <link rel="stylesheet" href="assets/brand.css" />
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      html, body { background: var(--ink); }
+      #bg { position: absolute; inset: 0; background: radial-gradient(80% 60% at 70% 20%, var(--main) 0%, var(--ink) 70%); }
+      #badge { position: absolute; left: 120px; top: 560px; height: 150px; padding: 0 56px; border-radius: 75px; background: var(--accent); color: var(--ink);
+        font: 800 84px/150px var(--head); letter-spacing: -0.02em; }
+      #t { position: absolute; left: 120px; top: 770px; width: 840px; font: 800 78px/1.04 var(--head); letter-spacing: -0.025em; }
+      #u { position: absolute; left: 124px; top: 1010px; width: 860px; font: 800 54px/1.15 var(--head); color: rgba(255,255,255,0.85); }
+      #u small { display: block; margin-top: 18px; font: 600 40px var(--sans); color: var(--accent); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="end" data-start="0" data-width="1080" data-height="1920" data-duration="2" data-fps="30">
+      <div id="bg"></div>
+      <div id="badge">8/10</div>
+      <div id="t">or it doesn't<br />leave the edit.</div>
+      <div id="u">claude-premiere-pro-skills<small>Try it: make_demo.sh</small></div>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#badge", { scale: 0.9 }, { scale: 1, duration: 0.3, ease: "back.out(2.5)", transformOrigin: "0% 50%" }, 0);
+      tl.fromTo("#u", { opacity: 0.4 }, { opacity: 1, duration: 0.3 }, 0.1);
+      tl.set({}, {}, Number(document.getElementById("root").dataset.duration));
+      window.__timelines = window.__timelines || {};
+      window.__timelines["end"] = tl;
+    </script>
+  </body>
+</html>

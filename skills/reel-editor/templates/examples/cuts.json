@@ -1,0 +1,17 @@
+{
+  "source": "raw/voice.m4a",
+  "transcript": "transcripts/voice.json",
+  "output": "graphics/my-reel/timeline.json",
+  "caption_offset": 0.15,
+  "caption_hold": 0.15,
+  "word_fixes": {
+    "12.48": "Premiere",
+    "20.10": { "start": 20.32 }
+  },
+  "timeline": [
+    { "name": "hook", "type": "aroll", "in": 3.62, "out": 6.10, "reason": "sentence 1, second take (first one had a slip)" },
+    { "name": "air-1", "type": "gap", "dur": 0.3, "reason": "breath before the reveal" },
+    { "name": "point-1", "type": "aroll", "in": 9.04, "out": 13.55, "gain_db": -2, "reason": "stressed word before a splice, -2 dB" },
+    { "name": "endcard", "type": "gap", "dur": 3.0, "room_from": 1.0, "reason": "end card, filled with room tone" }
+  ]
+}

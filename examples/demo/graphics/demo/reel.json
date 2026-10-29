@@ -1,0 +1,12 @@
+{
+  "title": "Demo reel (Claude)",
+  "timeline": "graphics/demo/timeline.json",
+  "dialog_src": "raw/voice.aiff",
+  "renders": "graphics/demo/renders",
+  "scenes": [
+    "main",
+    "end"
+  ],
+  "overlay": "overlay.mov",
+  "output": "exports/demo/demo.mp4"
+}

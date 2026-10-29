@@ -1,0 +1,12 @@
+raw/
+transcripts/
+exports/
+graphics/demo/renders/
+graphics/demo/audio/
+graphics/demo/assets/
+graphics/demo/scenes/overlay/
+graphics/demo/scenes/*/assets
+graphics/demo/scenes/*/timeline.js
+.venv/
+graphics/demo/timeline.*
+graphics/demo/demo.xml

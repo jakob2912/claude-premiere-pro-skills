@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Overlay – karaoke captions</title>
+    <link rel="stylesheet" href="assets/brand.css" />
+    <script src="assets/gsap.min.js"></script>
+    <script src="timeline.js"></script>
+    <style>
+      /* captions bottom left, clear of the Instagram/TikTok UI (x 120–780, bottom edge y 1400) */
+      #caps { position: absolute; left: 120px; top: 1180px; width: 660px; height: 220px; }
+      .cap { position: absolute; left: 0; bottom: 0; width: 660px; opacity: 0;
+        font: 800 66px/1.1 var(--head); letter-spacing: -0.015em; color: #fff;
+        text-shadow: 0 2px 6px rgba(0,0,0,0.35); }
+      .cap .box { display: inline-flex; gap: 0.26em; white-space: nowrap; box-sizing: border-box; padding: 8px 12px 10px 20px; border-radius: 16px;
+        background: var(--caption-bg); box-shadow: 0 10px 30px rgba(0,0,0,0.25); }
+      .cap .w { display: inline-block; opacity: 0.55; transform-origin: 0% 80%; }
+      .cap .w.key { color: var(--accent); }
+    </style>
+  </head>
+  <body>
+    <!-- Set data-duration to the timeline's duration (timeline.json "duration"), ending before the end card. -->
+    <div id="root" data-composition-id="overlay" data-start="0" data-width="1080" data-height="1920" data-duration="30" data-fps="30">
+      <div id="caps"></div>
+    </div>
+    <script>
+      const R = window.REEL;
+      const END = Number(document.getElementById("root").dataset.duration) - 0.02;
+      const tl = gsap.timeline({ paused: true });
+      // keywords in the accent colour (at most one per sentence); matching ignores case and punctuation
+      const KEYS = [];
+      const norm = (s) => s.toLowerCase().replace(/[^\p{L}\p{N}]/gu, "");
+      const isKey = (w) => KEYS.map(norm).includes(norm(w.text));
+      // return true for blocks that are already on screen as a big headline, e.g. (c) => c.start < 1.2
+      const HIDE = (c) => false;
+
+      function build() {
+        const caps = document.getElementById("caps");
+        R.captions.forEach((c, i) => {
+          if (HIDE(c)) return;
+          const el = document.createElement("div");
+          el.className = "cap"; el.id = "cap" + i;
+          el.innerHTML = `<span class="box">` + c.words.map((w, j) => `<span class="w${isKey(w) ? " key" : ""}" id="c${i}w${j}">${w.text}</span>`).join("") + `</span>`;
+          caps.appendChild(el);
+          let fs = 66; // blocks that are too wide (long compound words) shrink instead of wrapping
+          while (el.firstChild.getBoundingClientRect().width > 660 && fs > 50) { fs -= 2; el.style.fontSize = fs + "px"; }
+          tl.fromTo(el, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, c.start);
+          c.words.forEach((w, j) => {
+            const sel = `#c${i}w${j}`;
+            tl.to(sel, { opacity: 1, duration: 0.06 }, w.start);
+            if (isKey(w)) tl.fromTo(sel, { scale: 1.08 }, { scale: 1, duration: 0.18, ease: "back.out(2.5)" }, w.start);
+          });
+          tl.set(el, { opacity: 0 }, Math.min(c.end, END));
+        });
+        window.__timelines = window.__timelines || {};
+        window.__timelines["overlay"] = tl;
+      }
+      document.fonts.ready.then(build);
+    </script>
+  </body>
+</html>

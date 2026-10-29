@@ -1,0 +1,23 @@
+<!-- End card for gen_transitions.py: copy to graphics/<film>/<version>/endcard.html and replace the texts. -->
+<div class="card" id="card">
+  <div class="glow"></div>
+  <div class="grain"></div>
+  <div id="ec-logo" style="position:absolute;left:140px;top:640px;font:800 120px/1 var(--head);letter-spacing:-0.02em">Your Brand</div>
+  <div id="ec-rule" style="position:absolute;left:142px;top:900px;width:120px;height:2px;background:var(--accent);transform-origin:0 50%"></div>
+  <div id="ec-claim" style="position:absolute;left:140px;top:944px;width:840px;font:400 64px/1.18 var(--serif);letter-spacing:-0.01em">
+    <span class="line"><span>One line about</span></span>
+    <span class="line"><span>what you do.</span></span>
+    <span class="line"><span style="color:var(--accent)">And why it matters.</span></span>
+  </div>
+  <div id="ec-url" style="position:absolute;left:142px;top:1214px;font:600 30px var(--sans);letter-spacing:0.2em;color:var(--accent)">BOOK A CALL · EXAMPLE.COM</div>
+</div>
+<script>
+  function endcard(tl, t0) {
+    tl.set("#card", { opacity: 1 }, t0);
+    tl.fromTo("#ec-logo", { opacity: 0, scale: 1.06, filter: "blur(8px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.9, ease: "expo.out", transformOrigin: "0% 50%" }, t0);
+    tl.fromTo("#ec-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.8, ease: "expo.inOut" }, t0 + 0.15);
+    tl.fromTo("#ec-claim .line > span", { yPercent: 105 }, { yPercent: 0, duration: 0.9, ease: "expo.out", stagger: 0.14 }, t0 + 0.3);
+    tl.fromTo("#ec-url", { opacity: 0, letterSpacing: "0.32em" }, { opacity: 1, letterSpacing: "0.2em", duration: 1.0, ease: "expo.out" }, t0 + 0.75);
+    tl.fromTo("#card .glow", { scale: 1.08 }, { scale: 1, duration: 3.6, ease: "sine.out" }, t0 - 0.9);
+  }
+</script>

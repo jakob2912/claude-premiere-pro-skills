@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "premiere-reel-editor",
+  "displayName": "Premiere Reel Editor",
+  "version": "1.0.0",
+  "description": "Claude edits Reels, TikToks, Shorts and brand films in Adobe Premiere Pro: cut list from the transcript, HyperFrames motion graphics, sound design, -14 LUFS master, a new Premiere sequence via FCP XML, and a ruthless critic agent that loops until 8/10.",
+  "author": {
+    "name": "jakob2912",
+    "url": "https://github.com/jakob2912"
+  },
+  "homepage": "https://github.com/jakob2912/claude-premiere-pro-skills",
+  "repository": "https://github.com/jakob2912/claude-premiere-pro-skills",
+  "license": "MIT",
+  "keywords": [
+    "premiere-pro",
+    "video-editing",
+    "reels",
+    "tiktok",
+    "shorts",
+    "hyperframes",
+    "mcp",
+    "claude-code"
+  ],
+  "skills": "./skills/",
+  "agents": [
+    "./agents/critic.md"
+  ],
+  "mcpServers": "./.mcp.json"
+}

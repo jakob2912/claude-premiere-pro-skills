@@ -1,0 +1,21 @@
+{
+  "title": "My reel – hook in one line",
+  "timeline": "graphics/my-reel/timeline.json",
+  "dialog_src": "raw/voice.m4a",
+  "renders": "graphics/my-reel/renders",
+  "scenes": ["hook", "problem", "solution", "endcard"],
+  "overlay": "overlay.mov",
+  "output": "exports/my-reel/my-reel.mp4",
+  "music": {
+    "song": "audio/music/song.mp3",
+    "offset": 2.0,
+    "envelope_db": [[0, -60], [0.25, -23], [28.0, -23], [28.5, -9], [33.0, -9], [33.5, -60]],
+    "pause_boost_db": 4,
+    "min_pause": 0.3
+  },
+  "sfx": [
+    { "file": "whoosh.mp3", "at": 0.0, "gain_db": -8 },
+    { "file": "click.mp3", "at": 4.92, "gain_db": -5 },
+    { "file": "riser.mp3", "at": 27.8, "gain_db": -12, "align": "peak" }
+  ]
+}

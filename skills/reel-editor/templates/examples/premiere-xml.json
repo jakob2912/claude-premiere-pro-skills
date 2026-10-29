@@ -1,0 +1,56 @@
+{
+  "sequence_name": "my-talking-head-reel (Claude)",
+  "output": "graphics/my-reel/my-reel.xml",
+  "graphics_dir": "graphics/my-reel/renders",
+  "aroll": {
+    "path": "raw/IMG_0100.MOV",
+    "duration": 100.8
+  },
+  "dialog": {
+    "path": "audio/aroll-dialog.wav",
+    "duration": 100.8,
+    "gain_db": 0
+  },
+  "scenes": [
+    {
+      "name": "Hook phone",
+      "file": "hook-phone.mp4",
+      "start": 0.0,
+      "dur": 2.28
+    },
+    {
+      "name": "Project phone",
+      "file": "project-phone.mp4",
+      "start": 11.06,
+      "dur": 8.93
+    }
+  ],
+  "sfx_lengths": {
+    "whoosh": 0.6,
+    "pop": 0.72,
+    "click": 0.37,
+    "riser": 10.03,
+    "chime": 2.5
+  },
+  "sfx": [
+    {
+      "t": 0.0,
+      "file": "whoosh.mp3",
+      "gain_db": -8,
+      "reason": "phone flies in"
+    },
+    {
+      "t": 3.55,
+      "file": "pop.mp3",
+      "gain_db": -10,
+      "reason": "headline"
+    }
+  ],
+  "beds": [
+    {
+      "path": "audio/music-bed.wav",
+      "duration": 46.45,
+      "gain_db": 0
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Demo – phone scene</title>
+    <link rel="stylesheet" href="assets/brand.css" />
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      html, body { background: var(--ink); }
+      #bg { position: absolute; inset: 0; background: radial-gradient(80% 60% at 70% 20%, var(--main) 0%, var(--ink) 70%); }
+      #head { position: absolute; left: 120px; top: 236px; width: 860px; font: 800 64px/1.05 var(--head); letter-spacing: -0.02em; z-index: 3; }
+      #head .accent { color: var(--accent); }
+      #cam { position: absolute; inset: 0; transform-origin: 0 0; }
+      #phone { position: absolute; left: 230px; top: 420px; width: 620px; height: 1316px; border-radius: 92px;
+        background: #0b0d10; box-shadow: 0 50px 110px rgba(0,0,0,0.6), inset 0 0 0 3px rgba(255,255,255,0.08); }
+      #screen { position: absolute; left: 20px; top: 20px; right: 20px; bottom: 20px; border-radius: 74px; overflow: hidden; background: var(--paper); color: #16191d; }
+      #status { position: absolute; left: 0; right: 0; top: 0; height: 80px; font: 600 30px var(--sans); display: flex; align-items: center; padding: 0 56px; z-index: 2; background: var(--paper); }
+      #page { position: absolute; left: 0; right: 0; top: 0; }
+      .nav { height: 170px; padding: 98px 46px 0; box-sizing: border-box; font: 800 34px var(--head); }
+      .hero { margin: 24px 40px 0; height: 470px; border-radius: 40px; background: linear-gradient(150deg, var(--main), #3d6aa0); color: #fff;
+        padding: 52px 44px; box-sizing: border-box; font: 800 62px/1.04 var(--head); letter-spacing: -0.015em; }
+      .btn { position: relative; margin: 34px 40px 0; height: 118px; border-radius: 59px; background: var(--accent); color: #16191d;
+        font: 800 40px/118px var(--head); text-align: center; overflow: hidden; }
+      .feat { margin: 34px 40px 0; display: flex; gap: 24px; }
+      .feat div { flex: 1; height: 220px; border-radius: 32px; background: #e4e6e2; padding: 34px 30px; box-sizing: border-box; font: 800 38px/1.1 var(--head); }
+      .feat small { display: block; margin-top: 14px; font: 500 26px/1.3 var(--sans); color: #5b6168; }
+      #ripple { position: absolute; left: 50%; top: 50%; width: 60px; height: 60px; margin: -30px 0 0 -30px; border-radius: 50%; background: rgba(255,255,255,0.75); opacity: 0; }
+      #sheet { position: absolute; left: 0; right: 0; bottom: 0; height: 760px; border-radius: 52px 52px 0 0; background: #fff;
+        box-shadow: 0 -20px 60px rgba(0,0,0,0.18); padding: 56px 44px; box-sizing: border-box; transform: translateY(110%); z-index: 3; }
+      #sheet h3 { margin: 0 0 30px; font: 800 48px var(--head); }
+      .field { height: 104px; border-radius: 24px; border: 3px solid #d9dcd7; margin-bottom: 24px; font: 500 32px/98px var(--sans); padding: 0 30px; color: #8a9096; }
+      .slot { display: inline-block; margin: 0 14px 0 0; padding: 0 30px; height: 84px; border-radius: 42px; border: 3px solid #d9dcd7; font: 700 30px/78px var(--sans); }
+      .slot.on { background: var(--main); border-color: var(--main); color: #fff; }
+      #chip { position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%); padding: 0 46px; height: 130px; border-radius: 65px; background: #1f8a4c; color: #fff;
+        font: 800 50px/130px var(--head); white-space: nowrap; opacity: 0; z-index: 4; box-shadow: 0 24px 60px rgba(0,0,0,0.35); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-width="1080" data-height="1920" data-duration="15.06" data-fps="30">
+      <div id="bg"></div>
+      <div id="head">Rendered by the pipeline.<br /><span class="accent">Ready for Premiere.</span></div>
+      <div id="cam"><div id="phone"><div id="screen">
+        <div id="status">9:41</div>
+        <div id="page">
+          <div class="nav">your-site.com</div>
+          <div class="hero">Your business,<br />one tap away.</div>
+          <div class="btn" id="btn">Book a call<div id="ripple"></div></div>
+          <div class="feat"><div>Fast<small>Loads in a second</small></div><div>Clear<small>Prices up front</small></div></div>
+          <div class="feat"><div>Local<small>Ten minutes away</small></div><div>Open<small>Mon–Sat</small></div></div>
+        </div>
+        <div id="sheet"><h3>Pick a time</h3><div class="field">Your name</div>
+          <span class="slot">Mon 9:00</span><span class="slot" id="slot">Tue 14:00</span><span class="slot">Wed 11:00</span></div>
+        <div id="chip">Booked ✓</div>
+      </div></div></div>
+    </div>
+    <script>
+      // one visible action every ~1.5 s; headline and phone are in place from frame 0
+      const D = Number(document.getElementById("root").dataset.duration);
+      const k = D / 10; // the choreography is written for 10 s and stretched to the voice
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#phone", { y: 40, scale: 0.97 }, { y: 0, scale: 1, duration: 0.3, ease: "expo.out" }, 0);
+      tl.to("#cam", { scale: 1.06, x: -32, y: -40, duration: 1.4, ease: "sine.inOut" }, 0.3 * k);
+      tl.to("#page", { y: -560, duration: 0.7, ease: "power2.inOut" }, 1.6 * k);
+      tl.fromTo(".feat div", { scale: 0.94 }, { scale: 1, duration: 0.3, ease: "back.out(2)", stagger: 0.08 }, 2.2 * k);
+      tl.to("#page", { y: 0, duration: 0.6, ease: "power2.inOut" }, 3.2 * k);
+      tl.to("#cam", { scale: 1.0, x: 0, y: 0, duration: 0.6, ease: "power2.inOut" }, 3.2 * k);
+      tl.fromTo("#ripple", { opacity: 0.85, scale: 0 }, { opacity: 0, scale: 10, duration: 0.55, ease: "power2.out" }, 4.1 * k);
+      tl.fromTo("#btn", { scale: 0.95 }, { scale: 1, duration: 0.25, ease: "back.out(3)" }, 4.1 * k);
+      tl.to("#sheet", { y: 0, duration: 0.45, ease: "expo.out" }, 4.5 * k);
+      tl.set("#slot", { className: "slot on" }, 5.9 * k);
+      tl.fromTo("#slot", { scale: 0.92 }, { scale: 1, duration: 0.25, ease: "back.out(3)" }, 5.9 * k);
+      tl.to("#sheet", { y: "110%", duration: 0.4, ease: "power2.in" }, 7.2 * k);
+      tl.fromTo("#chip", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.5)" }, 7.6 * k);
+      tl.to("#cam", { scale: 1.08, x: -44, y: -60, duration: 1.2, ease: "sine.inOut" }, 8.2 * k);
+      tl.fromTo("#chip", { scale: 1.08 }, { scale: 1, duration: 0.3, ease: "back.out(2)" }, 9.2 * k);
+      tl.set({}, {}, D);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

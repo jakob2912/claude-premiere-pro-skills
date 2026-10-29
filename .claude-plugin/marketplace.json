@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "claude-premiere-pro-skills",
+  "owner": { "name": "jakob2912", "url": "https://github.com/jakob2912" },
+  "metadata": { "description": "Claude Code skills for editing short-form video in Adobe Premiere Pro." },
+  "plugins": [
+    {
+      "name": "premiere-reel-editor",
+      "source": "./",
+      "description": "Edit Reels, TikToks, Shorts and brand films in Premiere Pro with Claude, with a critic agent that loops until 8/10.",
+      "version": "1.0.0",
+      "category": "creative",
+      "tags": ["premiere-pro", "video-editing", "reels", "hyperframes", "mcp"]
+    }
+  ]
+}
